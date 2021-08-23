@@ -1,5 +1,7 @@
 const express = require("express");
 const Machine = require("../models/machine");
+
+const checkAuth = require("../middleware/check-auth");
 const router = express.Router();
 
 router.get("/", (req, res, next) => {
@@ -22,7 +24,7 @@ router.get("/:id", (req, res, next) => {
   });
 });
 
-router.post("/", (req, res, next) => {
+router.post("/", checkAuth, (req, res, next) => {
   let machine = new Machine({
     name: req.body.name,
     type: req.body.type,
@@ -40,7 +42,7 @@ router.post("/", (req, res, next) => {
   });
 });
 
-router.put("/:id", (req, res, next) => {
+router.put("/:id", checkAuth, (req, res, next) => {
   const machine = new Machine({
     _id: req.body.id,
     name: req.body.name,
@@ -55,7 +57,7 @@ router.put("/:id", (req, res, next) => {
   });
 });
 
-router.delete("/:id", (req, res, next) => {
+router.delete("/:id", checkAuth, (req, res, next) => {
   console.log(req.params.id);
   Machine.deleteOne({ _id: req.params.id }).then((result) => {
     console.log(result);

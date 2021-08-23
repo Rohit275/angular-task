@@ -35,16 +35,37 @@
                 >
                   Delete
                 </button> -->
+
                 <fa-icon
                   [icon]="faPen"
                   style="color: green; cursor: pointer"
                   [routerLink]="['/edit', machine.id]"
+                  *ngIf="userIsAuthenticated"
                 ></fa-icon>
+                <fa-icon
+                  [icon]="faPen"
+                  style="color: green; opacity: 0.5; cursor: not-allowed"
+                  [routerLink]="['/edit', machine.id]"
+                  *ngIf="!userIsAuthenticated"
+                ></fa-icon>
+                <!-- <fa-icon
+                  [icon]="faPen"
+                  style="color: green; cursor: pointer"
+                  [routerLink]="['/edit', machine.id]"
+                ></fa-icon> -->
+
                 &nbsp;
                 <fa-icon
                   [icon]="faTrash"
                   style="color: red; cursor: pointer"
                   (click)="onDelete(machine.id)"
+                  *ngIf="userIsAuthenticated"
+                ></fa-icon>
+                <fa-icon
+                  [icon]="faTrash"
+                  style="color: red; opacity: 0.5; cursor: not-allowed"
+                  (click)="onDelete(machine.id)"
+                  *ngIf="!userIsAuthenticated"
                 ></fa-icon>
               </span>
             </td>
